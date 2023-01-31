@@ -20,20 +20,27 @@ const Header = () => {
                 <h2>Social Mountain</h2>
             </div>
             <nav>
-                <ul className='main-nav'>
-                    {!authCtx.token && <li>
-                        <NavLink style={styleActiveLink} to='/'>Home</NavLink>
-                    </li>}
-                    {authCtx.token && <li>
-                        <NavLink style={styleActiveLink} to='profile'>Profile</NavLink>
-                    </li>}
-                    {authCtx.token && <li>
-                        <NavLink style={styleActiveLink} to='form'>Add Post</NavLink>
-                    </li>}
-                    {!authCtx.token && <li>
-                        <NavLink style={styleActiveLink} to='auth'>Login or Register</NavLink>
-                    </li>}
-                </ul>
+                {
+                    authCtx.token ? (
+                        <ul className='main-nav'>
+                            <li>
+                                <NavLink style={styleActiveLink} to='profile'>Profile</NavLink>
+                            </li>
+                            <li>
+                                <NavLink style={styleActiveLink} to='form'>Add Post</NavLink>
+                            </li>
+                        </ul>
+                    ) : (
+                        <ul className='main-nav'>
+                            <li>
+                                <NavLink style={styleActiveLink} to='/'>Home</NavLink>
+                            </li>
+                            <li>
+                                <NavLink style={styleActiveLink} to='auth'>Login or Register</NavLink>
+                            </li>
+                        </ul>
+                    )
+                }
             </nav>
         </header>
     )
