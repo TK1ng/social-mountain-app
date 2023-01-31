@@ -31,14 +31,12 @@ const Auth = () => {
         }
 
         let url = `https://socialmtn.devmountain.com/${endpoint}`;
-        console.log(url);
 
         axios.post(url, {
             username: username,
             password: password
         })
             .then(res => {
-                console.log(res.data)
                 const { token, exp, userId } = res.data;
                 authCtx.login(token, userId, exp);
             })
