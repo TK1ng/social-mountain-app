@@ -1,17 +1,22 @@
 require('dotenv').config();
+
+const { sequelize } = require('./util/database');
+const { User } = require('./models/user');
+const { Post } = require('./models/posts');
+
+
 const cors = require('cors');
 const { SECRET, PORT } = process.env;
-
 const { login, logout, register } = require('./controllers/auth');
 const { getAllPosts, getCurrentUserPosts, addPost, editPost, deletePosts } = require('./controllers/posts');
 const { isAuthenticated } = require('./middleware/isAuthenticated');
 
-
-
-
 const express = require('express');
 
 const app = express();
+
+User.hasMany(Post);
+Post.belongsTo(User);
 
 app.use(cors());
 app.use(express.json());
@@ -25,6 +30,12 @@ app.post('/posts', isAuthenticated, addPost);
 app.put('/posts/:id', isAuthenticated, editPost);
 app.delete('/posts/:id', isAuthenticated, deletePosts);
 
-app.listen(PORT, () => {
-    console.log(`Listening on port ${PORT}`)
-});
+sequelize.sync()
+    .then(res => {
+        app.listen(PORT, () => {
+            console.log(`db synced! Listening on port ${PORT}`)
+        });
+    })
+    .catch(err => {
+        console.log(err);
+    })
