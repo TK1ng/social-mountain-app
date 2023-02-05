@@ -8,7 +8,7 @@ const { Post } = require('./models/posts');
 const cors = require('cors');
 const { SECRET, PORT } = process.env;
 const { login, logout, register } = require('./controllers/auth');
-const { getAllPosts, getCurrentUserPosts, addPost, editPost, deletePosts } = require('./controllers/posts');
+const { getAllPosts, getCurrentUserPosts, addPost, editPost, deletePost } = require('./controllers/posts');
 const { isAuthenticated } = require('./middleware/isAuthenticated');
 
 const express = require('express');
@@ -28,7 +28,7 @@ app.get('/userposts/:userId', getCurrentUserPosts);
 app.get('/posts', getAllPosts);
 app.post('/posts', isAuthenticated, addPost);
 app.put('/posts/:id', isAuthenticated, editPost);
-app.delete('/posts/:id', isAuthenticated, deletePosts);
+app.delete('/posts/:id', isAuthenticated, deletePost);
 
 sequelize.sync()
     .then(res => {
