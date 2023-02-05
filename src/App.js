@@ -12,7 +12,6 @@ import Profile from './components/Profile'
 const App = () => {
 
   const authCtx = useContext(AuthContext);
-  console.log(authCtx)
   return (
     <div className='app'>
       <Header />

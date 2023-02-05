@@ -30,14 +30,13 @@ const Auth = () => {
             endpoint = 'login';
         }
 
-        let url = `https://socialmtn.devmountain.com/${endpoint}`;
-
+        let url = `http://localhost:4040/${endpoint}`;
         axios.post(url, {
             username: username,
             password: password
         })
             .then(res => {
-                const { token, exp, userId } = res.data;
+                const { username, id: userId, token, exp } = res.data;
                 authCtx.login(token, userId, exp);
             })
             .catch(err => console.log(err))
