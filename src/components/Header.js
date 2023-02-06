@@ -13,6 +13,10 @@ const Header = () => {
         }
     }
 
+    const handleLogout = () => {
+        authCtx.logout();
+    }
+
     return (
         <header className='header flex-row'>
             <div className='flex-row'>
@@ -28,6 +32,9 @@ const Header = () => {
                             </li>
                             <li>
                                 <NavLink style={styleActiveLink} to='form'>Add Post</NavLink>
+                            </li>
+                            <li>
+                                <button className='logout-btn' onClick={handleLogout}>Logout</button>
                             </li>
                         </ul>
                     ) : (
